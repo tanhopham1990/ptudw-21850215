@@ -18,6 +18,12 @@ app.engine('hbs', expressHandlebars.engine({
 app.set('view engine', 'hbs');
 
 // Routes
+app.get('/createTables', (req, res) => {
+    let models = require('./models');
+    models.sequelize.sync().then(() => {
+        res.send('Table created!')
+    });
+});
 app.get('/', (req, res) => {
     res.render('index');
 })
