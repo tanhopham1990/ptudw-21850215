@@ -19,6 +19,13 @@ app.set('view engine', 'hbs');
 
 // Routes
 app.use('/', require('./routes/indexRouter'));
+app.use((req, res, next) => {
+    res.status(404).render('error', { message: 'File not found'});
+})
+app.use((error, req, res, next) => {
+    console.error(error);
+    res.status(500).render('error', { message: 'Internal Server Error'});
+})
 
 // Khoi dong web server
 app.listen(port, () => {
